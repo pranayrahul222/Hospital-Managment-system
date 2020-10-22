@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Template is working</title>
+</head>
+<body>
+<h1>Welcome to Hospital Management System</h1>
+
+<form method="post" enctype="multipart/form-data" action="{% url 'result' %}">
+<!--action="{% url 'result' %}"-->
+ {% csrf_token %}
+ <div class="col-md-4 col-sm-4"><label for="fname">Upload Image File Here:</label> </div> <input name="filePath" type="file"><br><br>
+ <br>
+ <input type="submit" value="Submit" ></div>
+<h2>Prediction : {{pred}}</h2>
+</form>
+</body>
+</html>
