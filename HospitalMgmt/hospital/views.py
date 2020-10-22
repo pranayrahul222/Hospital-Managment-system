@@ -1,33 +1,81 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,logout,login 
+from django.contrib.auth import authenticate,logout,login
 from .models import *
 # Create your views here.
+
+
+from django.core.files.storage import FileSystemStorage
+import cv2
+import numpy as np
+import pickle
+from tensorflow.python.keras.models import load_model,Model
+base_model = load_model('/home/ayush/Desktop/addverb/django_project/covid/weights_v5_final_2cls.13.hdf5')
+embedding_predictor = Model(inputs=base_model.input, outputs=base_model.layers[-2].output)
+sc = pickle.load(open('/home/ayush/Desktop/addverb/django_project/covid/svm_classifier.sav', 'rb'))
+
+def predict(img):
+
+    base_pred = base_model.predict(img)[0][0]
+
+    if base_pred < 0.5:
+        return "Normal"
+    else:
+
+        emb = embedding_predictor.predict(img)
+        final_pred = sc.predict(emb)[0]
+        if(final_pred == 0):
+            return 'Normal'
+        if(final_pred == 1):
+            return 'Bacterial Pneumonia'
+        if(final_pred == 2):
+            return 'Viral Pneumonia'
+        if(final_pred == 3):
+            return 'Covid-19'
+
+def result(request):
+    fileObj = request.FILES['filePath']
+    fs = FileSystemStorage()
+    filePathName = fs.save(fileObj.name, fileObj)
+    filePathName = fs.url(filePathName)
+    testimage = '.' + filePathName
+    img = cv2.imread(testimage)
+    img = cv2.resize(img, (224,224))
+    img = np.array(img).astype('float32') / 255.
+    img = np.expand_dims(img, axis = 0)
+    pred = predict(img)
+    return render(request,'result.html',{'pred':pred})
+
+
 def About(request):
 	return render(request,'about.html')
 
 def Contact(request):
 	return render(request,'contact.html')
 
-def Index(request): 
-	if not request.user.is_staff:
-		return redirect('login')
 
-	doctors=Doctor.objects.all()
-	patients=Patient.objects.all()
-	appointments=Appointment.objects.all()
+def Index(request):
+    return render(request,'index.html')
 
-	d=0
-	p=0
-	a=0	
-	for i in doctors:
-		d+=1
-	for i in patients:
-		p+=1
-	for i in appointments:
-		a+=1
-	d1={'d':d,'p':p,'a':a}
-	return render(request,'index.html',d1)
+# def Index(request):
+# 	if not request.user.is_staff:
+# 		return redirect('login')
+#
+# 	doctors=Doctor.objects.all()
+# 	patients=Patient.objects.all()
+# 	appointments=Appointment.objects.all()
+#
+# 	d=0
+# 	p=0
+# 	a=0
+# 	for i in doctors:
+# 		d+=1
+# 	for i in patients:
+# 		p+=1
+# 	for i in appointments:
+# 		a+=1
+# 	d1={'d':d,'p':p,'a':a}
+# 	return render(request,'index.html',d1)
 
 def Login(request):
 	error=""
@@ -44,21 +92,21 @@ def Login(request):
 		except:
 			error="yes"
 	d={'error':error}
-	return render(request,'login.html',d) 
+	return render(request,'login.html',d)
 
-def Logout_admin(request): 
+def Logout_admin(request):
 	if not request.user.is_staff:
 		return redirect('login')
 	logout(request)
 	return redirect('login')
-	
+
 def View_Doctor(request):
 	if not request.user.is_staff:
 		return redirect('login')
 	doc = Doctor.objects.all()
 	d={'doc':doc}
 	return render(request,'view_doctor.html',d)
-	
+
 
 def Add_Doctor(request):
 	error=""
@@ -74,7 +122,7 @@ def Add_Doctor(request):
 		except:
 			error="yes"
 	d={'error':error}
-	return render(request,'add_doctor.html',d) 
+	return render(request,'add_doctor.html',d)
 
 
 def Delete_Doctor(request,pid):
@@ -90,7 +138,7 @@ def View_Patient(request):
 	pat = Patient.objects.all()
 	d={'pat':pat}
 	return render(request,'view_patient.html',d)
-	
+
 
 def Add_Patient(request):
 	error=""
@@ -107,7 +155,7 @@ def Add_Patient(request):
 		except:
 			error="yes"
 	d={'error':error}
-	return render(request,'add_patient.html',d) 
+	return render(request,'add_patient.html',d)
 
 
 def Delete_Patient(request,pid):
@@ -123,7 +171,7 @@ def View_Appointment(request):
 	appoint = Appointment.objects.all()
 	d={'appoint':appoint}
 	return render(request,'view_appointment.html',d)
-	
+
 
 def Add_Appointment(request):
 	error=""
@@ -144,7 +192,7 @@ def Add_Appointment(request):
 		except:
 			error="yes"
 	d={'doctor':doctor1,'patient':patient1,'error':error}
-	return render(request,'add_appointment.html',d) 
+	return render(request,'add_appointment.html',d)
 
 
 def Delete_Appointment(request,pid):

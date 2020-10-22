@@ -22,6 +22,7 @@ urlpatterns = [
     path('about/', About,name='about'),
     path('contact/', Contact,name='contact'),
     path('', Index,name='home'),
+    path('result',result,name='result'),
     path('admin_login/', Login,name='login'),
     path('logout/', Logout_admin,name='logout'),
     path('view_doctor/',View_Doctor,name='view_doctor'),
@@ -33,5 +34,5 @@ urlpatterns = [
     path('view_appointment/',View_Appointment,name='view_appointment'),
     path('add_appointment/',Add_Appointment,name='add_appointment'),
     path('delete_appointment(?P<int:pid>)/',Delete_Appointment,name='delete_appointment'),
-    
+
 ]
