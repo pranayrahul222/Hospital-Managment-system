@@ -38,12 +38,19 @@ model.load_weights('model.h5')
 cv2.ocl.setUseOpenCL(False)
 
 # dictionary which assigns each label an emotion (alphabetical order)
-emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
-
+#emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
+#emotion_dict = {0: "Normal", 1: "Normal", 2: "Panic", 3: "Normal", 4: "Normal", 5: "Normal", 6: "Panic"}
+#emotion_dict = {0: "PANIC-Angry", 1: "PANIC-Disgusted", 2: "PANIC-Fearful", 3: "Normal-Happy", 4: "Normal-Neutral", 5: "Normal-Sad", 6: "PANIC-Surprised"}
 # start the webcam feed
 cap = cv2.VideoCapture(0)
+
+pnc = 0
+lmt = 10
 while True:
     # Find haar cascade to draw bounding box around face
+
+    
+
     ret, frame = cap.read()
     if not ret:
         break
@@ -57,7 +64,26 @@ while True:
         cropped_img = np.expand_dims(np.expand_dims(cv2.resize(roi_gray, (48, 48)), -1), 0)
         prediction = model.predict(cropped_img)
         maxindex = int(np.argmax(prediction))
-        cv2.putText(frame, emotion_dict[maxindex], (x+20, y-60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+        
+        
+        if maxindex == 2 or maxindex == 6 :
+        	pnc+=1
+        else:
+        	pnc=0
+
+        if pnc<0:
+        	pnc=0
+        elif pnc>lmt:
+        	pnc=lmt
+
+
+        # cv2.putText(frame, emotion_dict[maxindex], (x+20, y-60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+
+        if pnc >= lmt:
+        	cv2.putText(frame, "PANIC" , (x+20, y-60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2, cv2.LINE_AA)
+        else:
+        	cv2.putText(frame, "Normal", (x+20, y-60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2, cv2.LINE_AA)
+
 
     cv2.imshow('Video', cv2.resize(frame,(800,480),interpolation = cv2.INTER_CUBIC))
     if cv2.waitKey(1) & 0xFF == ord('q'):
