@@ -11,3 +11,8 @@ cap = cv2.VideoCapture('Address of Video')
 in standalone_.py
 
 Press 'q' to exit. 
+
+requirements 
+numpy==1.17.4
+opencv-python==4.1.2.30
+tensorflow==2.1.2
