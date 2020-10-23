@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+div.a {
+    text-allign: center;
+}
+.column {
+  float: left;
+    width:50%;
+  padding: 5px;
+}
+.column1 {
+  float: left;
+    width:50%;
+  padding: 5px;
+}
+
+
+
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+</head>
+<body>
+<div class="a"><h1>->              Data Dashboard</h1></div>
+{#<h1>Data Dashboard</h1>#}
+{#    <img style = "float:right;" src="data:image/png;base64,{{ data }}" alt=""height="500" ,width=""500 >#}
+{#    <img src="data:image/png;base64,{{ data2 }}" alt=""height="500" ,width=""500 >#}
+{#    <img style = "float:right;" src="data:image/png;base64,{{ data3 }}" alt=""height="500" ,width=""500 >#}
+<div class="row">
+  <div class="column">
+      <h2>Our Hospital</h2>
+    <img src="data:image/png;base64,{{ data }}" alt=""height="300" ,width="400">
+  </div>
+  <div class="column1">
+      <h2>Our District</h2>
+    <img src="data:image/png;base64,{{ data2 }}" alt=""height="300" ,width="450">
+  </div>
+  <div class="column1">
+      <h2>Our District</h2>
+    <img src="data:image/png;base64,{{ data3 }}" alt=""height="300" ,width="450" >
+  </div>
+</div>
+
+
+
+
+</body>
+</html>
+
+
