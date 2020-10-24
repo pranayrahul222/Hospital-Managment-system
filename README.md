@@ -17,4 +17,4 @@ X-ray Image Covid Detection and Data Analyis are integrated in the main website 
 2) Rahul Pranay  - System Backend ( Admin Panel, Patient Panel, Appointment System) and model API Integrations
 3) Himanshu     - System Backend ( Admin Panel, Patient Panel, Appointment System) + Emotion Based smart Monitoring
 4) Himachal Gupta - System Frontend and Emotion based Smart Monitoring
-5) Boddireddy Vignan Reddy      - Real time Smart Dashboard and Data Analysis
+5) Boddireddy Vignan Reddy      -  System Backend(Data Analysis) and Real Time Smart Dashboard
