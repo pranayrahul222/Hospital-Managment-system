@@ -7,3 +7,7 @@
 4) Main Code ( HospitalMgt)
 
 X-ray Image Covid Detection and Data Analyis are integrated in the main website while emotion detection and mask detection are standalone projects.
+
+### Tech Stack - 
+1) Web Framework - Django
+2)Languages - Python, HTML, CSS
