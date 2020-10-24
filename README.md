@@ -10,4 +10,4 @@ X-ray Image Covid Detection and Data Analyis are integrated in the main website 
 
 ### Tech Stack - 
 1) Web Framework - Django
-2)Languages - Python, HTML, CSS
+2) Languages - Python, HTML, CSS
