@@ -13,8 +13,8 @@ X-ray Image Covid Detection and Data Analyis are integrated in the main website 
 2) Languages - Python, HTML, CSS
 
 ### Contributors
-Ayush Agarwal - X-ray based Covid Test from Sratch and Mask Detection based Smart Surveillance
-Rahul Pranay  - System Backend ( Admin Panel, Patient Panel, Appointment System) and model API Integrations
-Himanshu     - System Backend ( Admin Panel, Patient Panel, Appointment System) + Emotion Based smart Monitoring
-Himachal Gupta - System Frontend and Emotion based Smart Monitoring
-B.Vigan        - Smart Dashboard and Data Analysis
+1)Ayush Agarwal - X-ray based Covid Test from Sratch and Mask Detection based Smart Surveillance
+2)Rahul Pranay  - System Backend ( Admin Panel, Patient Panel, Appointment System) and model API Integrations
+3)Himanshu     - System Backend ( Admin Panel, Patient Panel, Appointment System) + Emotion Based smart Monitoring
+4)Himachal Gupta - System Frontend and Emotion based Smart Monitoring
+5)B.Vigan        - Smart Dashboard and Data Analysis
