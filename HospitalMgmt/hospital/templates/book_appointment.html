@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<form method="post" novalidate>
+  {% csrf_token %}
+    {{ form.as_p }}
+  <button type="submit" class="btn btn-outline-primary" >Book Appointment</button>
+</form>
+</body>
+</html>

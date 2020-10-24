@@ -9,3 +9,32 @@
     color: yellow !important;
     font-weight: bold;
 }
+
+
+* {
+  box-sizing: border-box;
+}
+
+div.a {
+    text-allign: center;
+}
+.column {
+  float: left;
+    width:50%;
+  padding: 5px;
+}
+.column1 {
+  float: left;
+    width:50%;
+  padding: 5px;
+}
+
+
+
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
